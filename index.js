@@ -18,13 +18,12 @@ const pool = new Pool({
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
   ssl: {
-    rejectUnauthorized: false, // Set to false if you want to accept self-signed certificates (not recommended for production)
+    rejectUnauthorized: false,
   },
 });
   app.post('/add-data', async (req, res) => {
     try {
       const client = await pool.connect();
-      console.log(client);
       const insertQuery = 'INSERT INTO my_data (name, email,msg) VALUES ($1, $2, $3) RETURNING *';
       const value = [req.body.first,req.body.second,req.body.third];
       const result = await client.query(insertQuery, value);
