@@ -26,8 +26,7 @@ const pool = new Pool({
       const client = await pool.connect();
       console.log(client);
       const insertQuery = 'INSERT INTO my_data (name, email,msg) VALUES ($1, $2, $3) RETURNING *';
-      // const value = [req.body.first,req.body.second,req.body.third];
-      const value = ['ajit kumar','nk500@gmail.com','hello'];
+      const value = [req.body.first,req.body.second,req.body.third];
       const result = await client.query(insertQuery, value);
       res.json(result.rows[0]);
       client.release();
@@ -36,20 +35,10 @@ const pool = new Pool({
       res.status(500).json({ error: 'An error occurred' });
     }
   });
-  // app.get('/', async (req, res) => {
-  //   try {
-  //     const client = await pool.connect();
-  //     const { rows } = await client.query('SELECT * FROM my_data');
-  //     res.json(rows);
-  //     client.release(); // Release the client back to the pool
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).json({ error: 'An error occurred' });
-  //   }
-  // });
   app.get('/',(req,res)=>{
-    console.log(process.env)
+    req.send("hello");
   })
-app.listen(3000,()=>{
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
     console.log("your code is working")
 });
