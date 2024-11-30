@@ -35,7 +35,7 @@ const pool = new Pool({
     }
   });
   app.get('/',(req,res)=>{
-    req.send("hello");
+    res.send("hello");
   })
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
